@@ -67,3 +67,15 @@ ul.bullet li::before {
     font-size: 18rem;
     color: var(--bs-danger);
 }
+
+.result {
+    font-size: 2rem;
+    font-weight: 900;
+        color: var(--bs-primary);
+}
+
+.remained {
+font-size: 1.3rem;
+    font-weight: 200;
+    color: var(--bs-secondary-color);
+}

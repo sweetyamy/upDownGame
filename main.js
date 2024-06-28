@@ -69,10 +69,19 @@ function play() {
     // if user input value is a small number than computer, display Up!
     result.classList.remove('d-none');
     result.textContent = 'UP!!!';
+    result.style.color = 'var(--bs-danger)';
   } else {
     // if user typed the same number with the history, display an error
     result.classList.remove('d-none');
     result.textContent = 'Bingo!!!';
+    result.style.color = 'var(--bs-warning)';
+    result.style.fontSize  = '5rem';
+    remained.innerHTML = `If you want to play again, click <strong>&lt;new play&gt;</strong> button`;
+    btnEnter.disabled = true;
+    bomb.classList.add('d-none');
+    btnEnter.classList.add('d-none');
+    btnReset.classList.add('d-none');
+    generateNewPlayBtn();
   }
 
   // user have five chances
@@ -80,9 +89,22 @@ function play() {
     // when game over - enter button disabled
     btnEnter.disabled = true;
     burst.classList.remove('d-none');
+    remained.classList.add('d-none');
+    result.classList.add('d-none');
     bomb.classList.add('d-none');
-    count.textContent = 'Game Over!'; 
+    count.textContent = 'Game Over!';
   }
+}
+
+// new play button
+function generateNewPlayBtn() {
+  const buttonContainer = document.getElementById('button-container');
+  const eleBtnNewGame = document.createElement('button');
+  eleBtnNewGame.id = "btnNewPlay";
+  eleBtnNewGame.className = 'btn btn-primary mt-3';
+  eleBtnNewGame.textContent = 'Play New Game';
+  eleBtnNewGame.addEventListener('click', reset);
+  buttonContainer.appendChild(eleBtnNewGame);
 }
 
 // display messages to modal
@@ -98,7 +120,7 @@ function reset() {
   btnEnter.disabled = false;
   burst.classList.add('d-none');
   bomb.classList.remove('d-none');
-  message.classList.add('d-none');
+  message.classList.remove('d-none');
   result.classList.add('d-none'); 
   remained.classList.add('d-none');
   attempts = 1; 
