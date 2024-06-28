@@ -1,0 +1,69 @@
+/* Title */
+p.title {
+    font-size: 3em;
+    font-weight: 700;
+    letter-spacing: -1.2px;
+}
+
+/* Ul, Li */
+ul,
+li {
+    text-align: left;
+}
+
+ul.bullet {
+    /* Remove default bullet */
+    list-style-type: none;
+    /* Adjust padding to accommodate custom bullet */
+    padding-left: 1.5em;
+}
+
+ul.bullet li {
+    /* Position for the custom bullet */
+    position: relative;
+}
+
+ul.bullet li::before {
+    content: '\f0a6';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    color: var(text-secondary-emphasis);
+    /* Position the bullet */
+    position: absolute;
+    left: -1.5em;
+    top: 0;
+}
+
+/* Count bomb*/
+
+.count-area {
+    position: relative;
+    /* Ensures that child elements are positioned relative to this container */
+    display: inline-block;
+    /* Keep it inline if needed */
+}
+
+.count {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: white;
+    /* Position it absolutely within the count-area */
+    position: absolute;
+    top: 50%;
+    /* Center horizontally */
+    left: 50%;
+    /* Adjust position to center */
+    transform: translate(-50%, -50%);
+    /* Place the count is on top of the bomb */
+    z-index: 1;
+    transition: opacity 300ms ease-in;
+}
+
+.fa-bomb {
+    font-size: 5rem;
+}
+
+.fa-burst {
+    font-size: 18rem;
+    color: var(--bs-danger);
+}
