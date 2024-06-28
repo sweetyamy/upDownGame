@@ -65,6 +65,7 @@ function play() {
     // if user input value is a large number than computer, display Down!
     result.classList.remove('d-none');
     result.textContent = 'Down!!!';
+    result.style.color = 'var(--bs-primary)';
   } else if (userValue < computer) {
     // if user input value is a small number than computer, display Up!
     result.classList.remove('d-none');

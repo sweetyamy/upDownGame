@@ -71,7 +71,7 @@ ul.bullet li::before {
 .result {
     font-size: 2rem;
     font-weight: 900;
-        color: var(--bs-primary);
+    color: var(--bs-primary);
 }
 
 .remained {
