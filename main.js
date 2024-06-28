@@ -8,6 +8,7 @@ let message = document.querySelector('.message');
 let result = document.querySelector('.result');
 let remained = document.querySelector('.remained');
 let count = document.querySelector('.count');
+const title = document.querySelector('.title');
 
 // reference to show modal when user submit
 const modalElement = document.getElementById('modal');
@@ -77,8 +78,9 @@ function play() {
     result.textContent = 'Bingo!!!';
     result.style.color = 'var(--bs-warning)';
     result.style.fontSize  = '5rem';
-    remained.innerHTML = `If you want to play again, click <strong>&lt;new play&gt;</strong> button`;
+    remained.innerHTML = `If you want to play again, click <strong>&lt;New Play Game&gt;</strong> button`;
     btnEnter.disabled = true;
+    title.classList.add('d-none');
     bomb.classList.add('d-none');
     btnEnter.classList.add('d-none');
     btnReset.classList.add('d-none');
