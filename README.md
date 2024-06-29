@@ -1,4 +1,4 @@
-# A Number Game - Up! Down!
+# ↕️ A Number Game - Up! Down!
 
 ### 🔗 Demo: <a href="https://upupdown.netlify.app/" target="_blank">https://upupdown.netlify.app</a>
 <img src="upDownGame-main.png">
