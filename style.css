@@ -1,3 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #F3F7EC;
+    display: grid;
+    place-items: center;
+    min-height: 100svh;
+    overflow: hidden;
+    color: #052b48;
+    font-family: "Fredericka the Great";
+}
+
+h1 {
+    margin-bottom: 1rem;
+    font-size: 3rem;
+    filter: drop-shadow(3px 3px 0 #E88D67);
+}
+
+.button {
+    border-radius: 9999px;
+    padding: 1rem 2rem;
+    font-weight: bold;
+    background: none;
+    position: relative;
+    border: 0.25rem solid;
+    color: inherit;
+    font-family: inherit;
+    font-size: 1.5rem;
+
+
+    &:hover {
+        cursor: pointer;
+        color: #F3F7EC;
+    }
+
+    &::before {
+        content: "XXXXX";
+        color: #db7d55;
+        font-size: 4rem;
+        padding-left: 0.5rem;
+        position: absolute;
+        inset: 0;
+        transform: translateX(0.75rem) translateY(0.5rem) rotateZ(-3deg) skewX(-10deg);
+        background-color: #E88D67;
+        z-index: -2;
+        border-radius: 1.4rem;
+        border-bottom-right-radius: 1rem;
+        border-bottom-left-radius: 2.25rem;
+        border-top-left-radius: 1.25rem;
+        transition: 250ms;
+        border: 5rem solid #E88D67;
+        border-top: 0 solid transparent;
+        border-left: 0 solid transparent;
+    }
+
+    &:hover::before {
+        color: #006989;
+
+        transform: translateX(0) translateY(-0.5rem) rotateZ(0deg) skewX(0) scaleX(25.25) scaleY(0.5);
+        border-radius: 0.25rem;
+        border-color: #006989;
+        border-bottom-right-radius: 0.2rem;
+        border-bottom-left-radius: 0.2rem;
+        border-top-left-radius: 0.2rem;
+        background-color: #006989;
+    }
+}
+
 /* Title */
 p.title {
     font-size: 3em;
@@ -49,9 +123,9 @@ ul.bullet li::before {
     color: white;
     /* Position it absolutely within the count-area */
     position: absolute;
-    top: 50%;
+    top: -0.7em;
     /* Center horizontally */
-    left: 50%;
+    left: 6.4em;
     /* Adjust position to center */
     transform: translate(-50%, -50%);
     /* Place the count is on top of the bomb */
@@ -61,21 +135,110 @@ ul.bullet li::before {
 
 .fa-bomb {
     font-size: 5rem;
+    position: relative;
+    top: -0.5em;
+    left: 60%;
+    transition: color 0.5s ease, font-size 0.5s ease;
 }
 
 .fa-burst {
     font-size: 18rem;
     color: var(--bs-danger);
+    position: relative;
+    top: -0.1em;
+    left: 28%;
+    transition: color 0.5s ease, font-size 0.5s ease;
 }
 
 .result {
     font-size: 2rem;
     font-weight: 900;
     color: var(--bs-primary);
+    /* text-align: left; */
 }
 
 .remained {
-font-size: 1.3rem;
+    font-size: 1.3rem;
     font-weight: 200;
     color: var(--bs-secondary-color);
+    /* text-align: left; */
+}
+
+.btn.btn-primary {
+    margin-top: 2.5em;
+}
+
+
+/* Diver - https://www.shapedivider.app */
+/* .divider {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.divider svg {
+    position: relative;
+    display: block;
+    width: calc(156% + 1.3px);
+    height: 52px;
+}
+
+.divider .shape-fill {
+    fill: #CFE2FF;
+} */
+
+
+@media screen and (max-width: 320px) {
+    /* Title */
+    p.title {
+        font-size: 2.5em;
+        font-weight: 700;
+        line-height: 0.9em;
+    }
+
+    .message {
+        font-size: 0.8em;
+        font-weight: 400;
+    }
+
+    .count {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: white;
+        /* Position it absolutely within the count-area */
+        position: absolute;
+        top: 0;
+        /* Center horizontally */
+        left: 95%;
+        /* Adjust position to center */
+        transform: translate(-50%, -50%);
+        /* Place the count is on top of the bomb */
+        z-index: 1;
+        transition: opacity 300ms ease-in;
+    }
+
+    .fa-bomb {
+        font-size: 5rem;
+        position: relative;
+        top: -0.2em;
+        left: 50%;
+        transition: color 0.5s ease, font-size 0.5s ease;
+    }
+
+    .fa-burst {
+        font-size: 18rem;
+        color: var(--bs-danger);
+        position: relative;
+        top: 0em;
+        left: 22%;
+        transition: color 0.5s ease, font-size 0.5s ease;
+    }
+    
+    .btn.btn-primary {
+        margin-top: 2.5em;
+    }
 }

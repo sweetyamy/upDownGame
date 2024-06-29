@@ -26,6 +26,13 @@ let attempts = 1;
 
 btnEnter.addEventListener('click', play);
 btnReset.addEventListener('click', reset);
+
+userInput.addEventListener('keydown', (event) => {
+  if (event.key === 'Enter') {
+    btnEnter.click();
+  }
+});
+
 generateRandomNumber();
 
 // computer generate a random number
@@ -35,16 +42,16 @@ function generateRandomNumber() {
 }
 
 function play() {
+  // Check if user input is empty
+  if (!userInput.value) {
+    showMessage('Please enter a number');
+    return;
+  }
+  
   // parseInt
   let userValue = parseInt(userInput.value);
-  const remainedAttampt = 5 - attempts;
 
-  message.classList.add('d-none');
-  remained.classList.remove('d-none');
-  remained.textContent = `You have ${remainedAttampt} times left`;
-  count.textContent = remainedAttampt;
-
-  // user can enter a number between 1 and 100
+    // user can enter a number between 1 and 100
   if (userValue < 1 || userValue > 100) {
     showMessage('Please enter a number between 1 and 100');
     return;
@@ -56,8 +63,27 @@ function play() {
     return;
   }
 
+  const remainedAttampt = 5 - attempts;
+
+  message.classList.add('d-none');
+  remained.classList.remove('d-none');
+  remained.textContent = `You have ${remainedAttampt} times left`;
+  count.textContent = remainedAttampt;
+
   // increase user attempt
   attempts++;
+  const increaseBombSize = 5 + attempts * 0.8; // Increase by 0.3rem per attempt
+  bomb.style.fontSize = `${increaseBombSize}rem`;
+
+  // Calculate RGB values for each attempt
+  const targetColor = { r: 220, g: 53, b: 69 }; // RGB values for #dc3545
+  const redValue = Math.min(targetColor.r, attempts * (targetColor.r / 5));
+  const greenValue = Math.min(targetColor.g, attempts * (targetColor.g / 5));
+  const blueValue = Math.min(targetColor.b, attempts * (targetColor.b / 5));
+  bomb.style.color = `rgb(${redValue}, ${greenValue}, ${blueValue})`;
+
+  
+
   // store user input into the array
   userNumbers.push(userValue);
 
@@ -78,7 +104,7 @@ function play() {
     result.textContent = 'Bingo!!!';
     result.style.color = 'var(--bs-warning)';
     result.style.fontSize  = '5rem';
-    remained.innerHTML = `If you want to play again, click <strong>&lt;New Play Game&gt;</strong> button`;
+    remained.innerHTML = `If you want to play again, click <strong>&lt;Let's try again&gt;</strong> button`;
     btnEnter.disabled = true;
     title.classList.add('d-none');
     bomb.classList.add('d-none');
@@ -104,8 +130,8 @@ function generateNewPlayBtn() {
   const buttonContainer = document.getElementById('button-container');
   const eleBtnNewGame = document.createElement('button');
   eleBtnNewGame.id = "btnNewPlay";
-  eleBtnNewGame.className = 'btn btn-primary mt-3';
-  eleBtnNewGame.textContent = 'Play New Game';
+  eleBtnNewGame.className = 'button mt-3';
+  eleBtnNewGame.textContent = "Let's try again!";
   eleBtnNewGame.addEventListener('click', reset);
   buttonContainer.appendChild(eleBtnNewGame);
 }
@@ -120,13 +146,25 @@ function reset() {
   // Reset
   userInput.value = ''; 
   generateRandomNumber();
-  btnEnter.disabled = false;
   burst.classList.add('d-none');
-  bomb.classList.remove('d-none');
+  title.classList.remove('d-none');
   message.classList.remove('d-none');
   result.classList.add('d-none'); 
   remained.classList.add('d-none');
+
+  bomb.classList.remove('d-none');
+  btnEnter.classList.remove('d-none');
+  btnEnter.disabled = false;
+  btnReset.classList.remove('d-none');
+  
   attempts = 1; 
   userNumbers = [];
   count.textContent = 5;
+  bomb.style.fontSize = 5;
+  bomb.style.color = 'black'
+
+  const newPlayButton = document.getElementById('btnNewPlay');
+  if (newPlayButton) {
+    newPlayButton.remove();
+  }
 }
