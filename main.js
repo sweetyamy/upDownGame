@@ -9,6 +9,7 @@ let result = document.querySelector('.result');
 let remained = document.querySelector('.remained');
 let count = document.querySelector('.count');
 const title = document.querySelector('.title');
+const eleBtnNewGame = document.createElement('button');
 
 // reference to show modal when user submit
 const modalElement = document.getElementById('modal');
@@ -32,6 +33,12 @@ userInput.addEventListener('keydown', (event) => {
     btnEnter.click();
   }
 });
+
+eleBtnNewGame.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+      reset();
+    }
+  });
 
 generateRandomNumber();
 
@@ -82,8 +89,6 @@ function play() {
   const blueValue = Math.min(targetColor.b, attempts * (targetColor.b / 5));
   bomb.style.color = `rgb(${redValue}, ${greenValue}, ${blueValue})`;
 
-  
-
   // store user input into the array
   userNumbers.push(userValue);
 
@@ -128,9 +133,14 @@ function play() {
 // new play button
 function generateNewPlayBtn() {
   const buttonContainer = document.getElementById('button-container');
-  const eleBtnNewGame = document.createElement('button');
+  
+  if (!buttonContainer) {
+    console.error("Button container element not found");
+    return;
+  }
+
   eleBtnNewGame.id = "btnNewPlay";
-  eleBtnNewGame.className = 'button mt-3';
+  eleBtnNewGame.className = 'button mt-3'; // Use Bootstrap class if needed
   eleBtnNewGame.textContent = "Let's try again!";
   eleBtnNewGame.addEventListener('click', reset);
   buttonContainer.appendChild(eleBtnNewGame);
