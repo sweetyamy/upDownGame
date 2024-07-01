@@ -1,4 +1,4 @@
-// get a reference
+// References
 const userInput = document.getElementById('user-input');
 const btnEnter = document.getElementById('btnEnter');
 const btnReset = document.getElementById('btnReset');
@@ -13,7 +13,7 @@ const title = document.querySelector('.title');
 const randomNumDpArea = document.querySelector('.random-number');
 const eleBtnNewGame = document.createElement('button');
 
-// reference to show modal when user submit
+// Modal
 const modalElement = document.getElementById('modal');
 const modalMessage = document.getElementById('modalMessage');
 const modal = new bootstrap.Modal(modalElement);
@@ -22,14 +22,16 @@ document.getElementById('close-modal-button').addEventListener('click', () => {
   modal.hide();
 });
 
-// array to store user input
+
 let computer = 0;
-let userNumbers = [];
 let attempts = 1;
+// Array to store user input
+let userNumbers = [];
 
 btnEnter.addEventListener('click', play);
 btnReset.addEventListener('click', reset);
 
+// Access key for Enter button
 userInput.addEventListener('keydown', (event) => {
   if (event.key === 'Enter') {
     btnEnter.click();
@@ -42,9 +44,10 @@ eleBtnNewGame.addEventListener('keydown', (event) => {
     }
   });
 
+// computer generate a random number
 generateRandomNumber();
 
-// computer generate a random number
+// Function to generate a random number
 function generateRandomNumber() {
   computer = Math.floor(Math.random() * 100) + 1;
   console.log(computer);
@@ -52,6 +55,7 @@ function generateRandomNumber() {
   randomNumDpArea.style.color = 'var(--bs-danger)';
 }
 
+// Function to play game
 function play() {
   // Check if user input is empty
   if (!userInput.value) {
@@ -68,22 +72,24 @@ function play() {
     return;
   }
 
-  // valid user input is already exist
+  // Validation user input is already exist
   if (userNumbers.includes(userValue)) {
     showMessage('The number is already exist. Please try again');
     return;
   }
 
-  const remainedAttampt = 3 - attempts;
+  // check remained attampt
+  let maxAttempts = parseInt(count.textContent);
+  let remainedAttampt = maxAttempts - attempts;
 
   message.classList.add('d-none');
   remained.classList.remove('d-none');
   remained.textContent = `You have ${remainedAttampt} times left`;
   count.textContent = remainedAttampt;
 
-  // increase user attempt
+  // Increase user attempt
   attempts++;
-  const increaseBombSize = count + attempts * 0.8; // Increase by 0.8 per attempt
+  const increaseBombSize = count + attempts * 0.8; // Increase by 0.8rem per attempt
   bomb.style.fontSize = `${increaseBombSize}rem`;
 
   // Calculate RGB values for each attempt
@@ -174,7 +180,7 @@ function reset() {
   attempts = 1; 
   userNumbers = [];
   count.textContent = 3;
-  bomb.style.fontSize = 5;
+  bomb.style.fontSize = 3;
   bomb.style.color = 'black'
 
   const newPlayButton = document.getElementById('btnNewPlay');
