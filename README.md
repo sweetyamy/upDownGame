@@ -4,7 +4,6 @@
 > The number-guessing game involves guessing a number between 1 and 100. After each attempt, the result is displayed, and the player must guess the number before their attempts run out. If the player successfully guesses the number, the game ends. 
 
 ### :bookmark_tabs: Requirements
-* Responsible UI
 * At the start of the game, the computer generates a random number.
 * The player inputs a number.
 * If the player's number is lower than the computer's selection, the game displays "Up!"
@@ -17,7 +16,10 @@
 * Validate user value
   * If the user value is out of the range, display an error <br />
   * If the user typed the same number, display a message, but do not increase the attempt
-* :moneybag: **Bonus:** display user history
+  * 
+#### :moneybag: **Bonus**
+* Responsible UI
+* display user history
   
 ### 🔗 Demo: <a href="https://upupdown.netlify.app/" target="_blank">https://upupdown.netlify.app</a>
 <img src="upDownGame-main.png">
