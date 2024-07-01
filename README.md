@@ -18,7 +18,7 @@
 * Validate user value
   * If the user value is out of the range, display an error <br />
   * If the user typed the same number, display a message, but do not increase the attempt
-  * 
+    
 #### :moneybag: **Bonus**
 * Responsible UI
 * display user history
