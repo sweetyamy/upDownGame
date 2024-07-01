@@ -8,7 +8,9 @@ let message = document.querySelector('.message');
 let result = document.querySelector('.result');
 let remained = document.querySelector('.remained');
 let count = document.querySelector('.count');
+count.textContent = 3;
 const title = document.querySelector('.title');
+const randomNumDpArea = document.querySelector('.random-number');
 const eleBtnNewGame = document.createElement('button');
 
 // reference to show modal when user submit
@@ -46,6 +48,8 @@ generateRandomNumber();
 function generateRandomNumber() {
   computer = Math.floor(Math.random() * 100) + 1;
   console.log(computer);
+  randomNumDpArea.textContent = `The random number is ${computer}`
+  randomNumDpArea.style.color = 'var(--bs-danger)';
 }
 
 function play() {
@@ -70,7 +74,7 @@ function play() {
     return;
   }
 
-  const remainedAttampt = 5 - attempts;
+  const remainedAttampt = 3 - attempts;
 
   message.classList.add('d-none');
   remained.classList.remove('d-none');
@@ -79,7 +83,7 @@ function play() {
 
   // increase user attempt
   attempts++;
-  const increaseBombSize = 5 + attempts * 0.8; // Increase by 0.3rem per attempt
+  const increaseBombSize = count + attempts * 0.8; // Increase by 0.8 per attempt
   bomb.style.fontSize = `${increaseBombSize}rem`;
 
   // Calculate RGB values for each attempt
@@ -109,7 +113,7 @@ function play() {
     result.textContent = 'Bingo!!!';
     result.style.color = 'var(--bs-warning)';
     result.style.fontSize  = '5rem';
-    remained.innerHTML = `If you want to play again, click <strong>&lt;Let's try again&gt;</strong> button`;
+    remained.innerHTML = `If you want to play again, click <strong>&lt;Play Again&gt;</strong> button`;
     btnEnter.disabled = true;
     title.classList.add('d-none');
     bomb.classList.add('d-none');
@@ -119,7 +123,7 @@ function play() {
   }
 
   // user have five chances
-  if (attempts > 5) {
+  if (attempts > count) {
     // when game over - enter button disabled
     btnEnter.disabled = true;
     burst.classList.remove('d-none');
@@ -141,7 +145,7 @@ function generateNewPlayBtn() {
 
   eleBtnNewGame.id = "btnNewPlay";
   eleBtnNewGame.className = 'button mt-3'; // Use Bootstrap class if needed
-  eleBtnNewGame.textContent = "Let's try again!";
+  eleBtnNewGame.textContent = "Play Again!";
   eleBtnNewGame.addEventListener('click', reset);
   buttonContainer.appendChild(eleBtnNewGame);
 }
@@ -169,7 +173,7 @@ function reset() {
   
   attempts = 1; 
   userNumbers = [];
-  count.textContent = 5;
+  count.textContent = 3;
   bomb.style.fontSize = 5;
   bomb.style.color = 'black'
 
