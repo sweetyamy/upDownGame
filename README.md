@@ -1,5 +1,6 @@
 # :star2: A Number Game - Up! Down!
 
+### :date: Project Date: 2024-06-28?
 ### :memo: Information 
 > The number-guessing game involves guessing a number between 1 and 100. After each attempt, the result is displayed, and the player must guess the number before their attempts run out. If the player successfully guesses the number, the game ends. 
 
