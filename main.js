@@ -9,6 +9,7 @@ let result = document.querySelector('.result');
 let remained = document.querySelector('.remained');
 let count = document.querySelector('.count');
 count.textContent = 3;
+const maxAttempts = parseInt(count.textContent);
 const title = document.querySelector('.title');
 const randomNumDpArea = document.querySelector('.random-number');
 const eleBtnNewGame = document.createElement('button');
@@ -79,7 +80,6 @@ function play() {
   }
 
   // check remained attampt
-  let maxAttempts = parseInt(count.textContent);
   let remainedAttampt = maxAttempts - attempts;
 
   message.classList.add('d-none');
@@ -89,7 +89,7 @@ function play() {
 
   // Increase user attempt
   attempts++;
-  const increaseBombSize = count + attempts * 0.8; // Increase by 0.8rem per attempt
+  let increaseBombSize = maxAttempts + attempts * 2; // Increase by 0.8rem per attempt
   bomb.style.fontSize = `${increaseBombSize}rem`;
 
   // Calculate RGB values for each attempt
@@ -129,7 +129,7 @@ function play() {
   }
 
   // user have five chances
-  if (attempts > count) {
+  if (attempts > maxAttempts) {
     // when game over - enter button disabled
     btnEnter.disabled = true;
     burst.classList.remove('d-none');
