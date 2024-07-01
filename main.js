@@ -137,6 +137,10 @@ function play() {
     result.classList.add('d-none');
     bomb.classList.add('d-none');
     count.textContent = 'Game Over!';
+    
+    btnEnter.classList.add('d-none');
+    btnReset.classList.add('d-none');
+    generateNewPlayBtn();
   }
 }
 
@@ -180,7 +184,7 @@ function reset() {
   attempts = 1; 
   userNumbers = [];
   count.textContent = 3;
-  bomb.style.fontSize = 3;
+  bomb.style.fontSize = `5rem`;
   bomb.style.color = 'black'
 
   const newPlayButton = document.getElementById('btnNewPlay');
