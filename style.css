@@ -154,14 +154,14 @@ ul.bullet li::before {
     font-size: 2rem;
     font-weight: 900;
     color: var(--bs-primary);
-    /* text-align: left; */
+    text-align: left;
 }
 
-.remained {
+.remained, .stitle {
     font-size: 1.3rem;
     font-weight: 200;
     color: var(--bs-secondary-color);
-    /* text-align: left; */
+    text-align: left;
 }
 
 .btn.btn-primary {

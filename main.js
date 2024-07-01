@@ -11,6 +11,7 @@ let count = document.querySelector('.count');
 count.textContent = 3;
 const maxAttempts = parseInt(count.textContent);
 const title = document.querySelector('.title');
+const stitle = document.querySelector('.stitle');
 const randomNumDpArea = document.querySelector('.random-number');
 const eleBtnNewGame = document.createElement('button');
 
@@ -78,7 +79,6 @@ function play() {
     showMessage('The number is already exist. Please try again');
     return;
   }
-
   // check remained attampt
   let remainedAttampt = maxAttempts - attempts;
 
@@ -99,8 +99,10 @@ function play() {
   const blueValue = Math.min(targetColor.b, attempts * (targetColor.b / 5));
   bomb.style.color = `rgb(${redValue}, ${greenValue}, ${blueValue})`;
 
-  // store user input into the array
+  // Store user input into the array
   userNumbers.push(userValue);
+  // Update the sub title with user inputs
+  displayUserInput();
 
   // if user input value is the same number with computer, display a message
   if (userValue > computer) {
@@ -131,13 +133,13 @@ function play() {
   // user have five chances
   if (attempts > maxAttempts) {
     // when game over - enter button disabled
-    btnEnter.disabled = true;
     burst.classList.remove('d-none');
     remained.classList.add('d-none');
     result.classList.add('d-none');
     bomb.classList.add('d-none');
     count.textContent = 'Game Over!';
     
+    btnEnter.disabled = true;
     btnEnter.classList.add('d-none');
     btnReset.classList.add('d-none');
     generateNewPlayBtn();
@@ -184,6 +186,7 @@ function reset() {
   attempts = 1; 
   userNumbers = [];
   count.textContent = 3;
+  stitle.textContent = '';
   bomb.style.fontSize = `5rem`;
   bomb.style.color = 'black'
 
@@ -191,4 +194,9 @@ function reset() {
   if (newPlayButton) {
     newPlayButton.remove();
   }
+}
+
+// Function for new title
+function displayUserInput() {
+  stitle.innerHTML = `You Entered: ${userNumbers.join(', ')}`;
 }
