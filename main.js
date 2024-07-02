@@ -1,18 +1,21 @@
 // References
-const userInput = document.getElementById('user-input');
-const btnEnter = document.getElementById('btnEnter');
-const btnReset = document.getElementById('btnReset');
-const burst = document.querySelector('.fa-burst');
-const bomb = document.querySelector('.fa-bomb');
-let message = document.querySelector('.message');
-let result = document.querySelector('.result');
-let remained = document.querySelector('.remained');
+const title = document.querySelector('.title');
+let gameInfo = document.querySelector('.gameInfo'); 
+let result = document.querySelector('.result'); // Up Down
+const userNumDisplay = document.querySelector('.user-num-display'); // display values in array
+let remained = document.querySelector('.remained'); 
 let count = document.querySelector('.count');
 count.textContent = 3;
 const maxAttempts = parseInt(count.textContent);
-const title = document.querySelector('.title');
-const stitle = document.querySelector('.stitle');
-const randomNumDpArea = document.querySelector('.random-number');
+
+const burst = document.querySelector('.fa-burst');
+const bomb = document.querySelector('.fa-bomb');
+
+const userInput = document.getElementById('user-input');
+const btnEnter = document.getElementById('btnEnter');
+const btnReset = document.getElementById('btnReset');
+
+const randomNumber = document.querySelector('.random-number'); // display random number in the game info area
 const eleBtnNewGame = document.createElement('button');
 
 // Modal
@@ -50,14 +53,6 @@ eleBtnNewGame.addEventListener('keydown', (event) => {
 // computer generate a random number
 generateRandomNumber();
 
-// Function to generate a random number
-function generateRandomNumber() {
-  computer = Math.floor(Math.random() * 100) + 1;
-  console.log(computer);
-  randomNumDpArea.textContent = `The random number is ${computer}`
-  randomNumDpArea.style.color = 'var(--bs-danger)';
-}
-
 // Function to play game
 function play() {
   // Check if user input is empty
@@ -83,65 +78,112 @@ function play() {
   
   // Store user input into the array
   userNumbers.push(userValue);
-  // Update the sub title with user inputs
-  displayUserInput();
+  // Update the sub title with user input
+  userNumDisplay.classList.remove('d-none');
+  userNumDisplay.innerHTML = `Randome: ${computer}, You Entered: ${userNumbers.join(', ')}`;
 
-  // if user input value is the same number with computer, display a message
+  // compare user input value with the random number
   if (userValue > computer) {
-    // if user input value is a large number than computer, display Down!
-    result.classList.remove('d-none');
     result.textContent = 'Down!!!';
+    result.classList.remove('d-none');
     result.style.color = 'var(--bs-primary)';
   } else if (userValue < computer) {
-    // if user input value is a small number than computer, display Up!
-    result.classList.remove('d-none');
     result.textContent = 'UP!!!';
+    result.classList.remove('d-none');
     result.style.color = 'var(--bs-danger)';
   } else {
-    // if user typed the same number with the history, display an error
-    result.classList.remove('d-none');
     result.textContent = 'Bingo!!!';
+    result.classList.remove('d-none');
     result.style.color = 'var(--bs-warning)';
     result.style.fontSize  = '5rem';
-    remained.innerHTML = `If you want to play again, click <strong>&lt;Play Again&gt;</strong> button`;
     btnEnter.disabled = true;
-    title.classList.add('d-none');
-    bomb.classList.add('d-none');
-    btnEnter.classList.add('d-none');
-    btnReset.classList.add('d-none');
+    bingoDNone();
     generateNewPlayBtn();
+    return;
   }
 
   // check remained attampt
   let remainedAttampt = maxAttempts - attempts;
-
-  message.classList.add('d-none');
-  remained.classList.remove('d-none');
+  //remove the game information area
+  rmGameInfo();
+  // display attempt
+  remained.classList.remove('d-none'); 
   remained.textContent = `You have ${remainedAttampt} times left`;
+  // display the remained attempt number on bomb
   count.textContent = remainedAttampt;
-
-  // check attemps
-  const checkMaxAttempts = maxAttempts - 1;
-
-  if (attempts > checkMaxAttempts) {
-    // when game over - enter button disabled
-    burst.classList.remove('d-none');
-    remained.classList.add('d-none');
-    result.classList.add('d-none');
-    bomb.classList.add('d-none');
-    title.classList.add('d-none');
-    stitle.classList.add('d-none');
-    userInput.classList.add('d-none');
-    count.textContent = 'Game Over!';
-    
-    btnEnter.disabled = true;
-    btnEnter.classList.add('d-none');
-    btnReset.classList.add('d-none');
-    generateNewPlayBtn();
-  }
   
   // Increase user attempt
   attempts++;
+  bombSize();
+
+  // check attemps
+  if (attempts > maxAttempts) {
+    count.textContent = 'Game Over!';
+    btnEnter.disabled = true;
+    gameOverDisabled();
+    generateNewPlayBtn();
+  }
+}
+
+// Function to generate a random number
+function generateRandomNumber() {
+  computer = Math.floor(Math.random() * 100) + 1;
+  console.log(computer);
+  randomNumber.textContent = `The random number is ${computer}`
+  randomNumber.style.color = 'var(--bs-danger)';
+}
+
+// display messages to modal
+function showMessage(warning) {
+  modalMessage.textContent = warning;
+  modal.show();
+}
+
+// new play button
+function generateNewPlayBtn() {
+  const buttonContainer = document.getElementById('button-container');
+  if (!buttonContainer) {
+    console.error("Button container element not found");
+    return;
+  }
+  eleBtnNewGame.id = "btnNewPlay";
+  eleBtnNewGame.className = 'button mt-3'; // Use Bootstrap class if needed
+  eleBtnNewGame.textContent = "Play Again!";
+  eleBtnNewGame.addEventListener('click', reset);
+  buttonContainer.appendChild(eleBtnNewGame);
+}
+
+function reset() {
+  userInput.value = ''; 
+  generateRandomNumber();
+  burst.classList.add('d-none');
+  title.classList.remove('d-none');
+  gameInfo.classList.remove('d-none');
+  result.classList.add('d-none'); 
+  remained.classList.add('d-none');
+
+  bomb.classList.remove('d-none');
+  btnEnter.classList.remove('d-none');
+  btnEnter.disabled = false;
+  btnReset.classList.remove('d-none');
+  
+  attempts = 1; 
+  userNumbers = [];
+  userInput.classList.remove('d-none');
+  count.classList.remove('d-none');
+  count.textContent = 3;
+  userNumDisplay.textContent = '';
+  userInput.classList.remove('d-none');
+  bomb.style.fontSize = `5rem`;
+  bomb.style.color = 'black'
+
+  const newPlayButton = document.getElementById('btnNewPlay');
+  if (newPlayButton) {
+    newPlayButton.remove();
+  }
+}
+
+function bombSize() {
   let increaseBombSize = maxAttempts + attempts * 2; // Increase by 0.8rem per attempt
   bomb.style.fontSize = `${increaseBombSize}rem`;
 
@@ -153,58 +195,40 @@ function play() {
   bomb.style.color = `rgb(${redValue}, ${greenValue}, ${blueValue})`;
 }
 
-// new play button
-function generateNewPlayBtn() {
-  const buttonContainer = document.getElementById('button-container');
-  
-  if (!buttonContainer) {
-    console.error("Button container element not found");
-    return;
-  }
-
-  eleBtnNewGame.id = "btnNewPlay";
-  eleBtnNewGame.className = 'button mt-3'; // Use Bootstrap class if needed
-  eleBtnNewGame.textContent = "Play Again!";
-  eleBtnNewGame.addEventListener('click', reset);
-  buttonContainer.appendChild(eleBtnNewGame);
-}
-
-// display messages to modal
-function showMessage(warning) {
-  modalMessage.textContent = warning;
-  modal.show();
-}
-
-function reset() {
-  // Reset
-  userInput.value = ''; 
-  generateRandomNumber();
-  burst.classList.add('d-none');
-  title.classList.remove('d-none');
-  message.classList.remove('d-none');
-  result.classList.add('d-none'); 
+function gameOverDisabled() {
+  burst.classList.remove('d-none');
   remained.classList.add('d-none');
-
-  bomb.classList.remove('d-none');
-  btnEnter.classList.remove('d-none');
-  btnEnter.disabled = false;
-  btnReset.classList.remove('d-none');
-  
-  attempts = 1; 
-  userNumbers = [];
-  count.textContent = 3;
-  stitle.textContent = '';
-  userInput.classList.remove('d-none');
-  bomb.style.fontSize = `5rem`;
-  bomb.style.color = 'black'
-
-  const newPlayButton = document.getElementById('btnNewPlay');
-  if (newPlayButton) {
-    newPlayButton.remove();
-  }
+  result.classList.add('d-none');
+  userNumDisplay.classList.add('d-none');
+  rmTitle();
+  rmBomb();
+  rmButtons();
 }
 
-// Function for new title
-function displayUserInput() {
-  stitle.innerHTML = `Randome: ${computer}, You Entered: ${userNumbers.join(', ')}`;
+
+function bingoDNone() {
+  count.classList.add('d-none');
+  remained.classList.add('d-none');
+  rmTitle();
+  rmGameInfo();
+  rmBomb();
+  rmButtons();
+}
+
+
+function rmGameInfo() {
+  gameInfo.classList.add('d-none'); 
+}
+
+function rmTitle() {
+  title.classList.add('d-none');
+}
+
+function rmButtons() {
+  btnEnter.classList.add('d-none');
+  btnReset.classList.add('d-none');
+}
+
+function rmBomb() {
+  bomb.classList.add('d-none');
 }
