@@ -32,6 +32,7 @@ let userNumbers = [];
 
 btnEnter.addEventListener('click', play);
 btnReset.addEventListener('click', reset);
+userInput.addEventListener('focus', () => userInput.value = "");
 
 // Access key for Enter button
 userInput.addEventListener('keydown', (event) => {
