@@ -86,14 +86,6 @@ function play() {
   // Update the sub title with user inputs
   displayUserInput();
 
-  // check remained attampt
-  let remainedAttampt = maxAttempts - attempts;
-
-  message.classList.add('d-none');
-  remained.classList.remove('d-none');
-  remained.textContent = `You have ${remainedAttampt} times left`;
-  count.textContent = remainedAttampt;
-
   // if user input value is the same number with computer, display a message
   if (userValue > computer) {
     // if user input value is a large number than computer, display Down!
@@ -120,6 +112,14 @@ function play() {
     generateNewPlayBtn();
   }
 
+  // check remained attampt
+  let remainedAttampt = maxAttempts - attempts;
+
+  message.classList.add('d-none');
+  remained.classList.remove('d-none');
+  remained.textContent = `You have ${remainedAttampt} times left`;
+  count.textContent = remainedAttampt;
+
   // check attemps
   if (attempts > maxAttempts) {
     // when game over - enter button disabled
@@ -134,7 +134,7 @@ function play() {
     btnReset.classList.add('d-none');
     generateNewPlayBtn();
   }
-
+  
   // Increase user attempt
   attempts++;
   let increaseBombSize = maxAttempts + attempts * 2; // Increase by 0.8rem per attempt
@@ -200,5 +200,5 @@ function reset() {
 
 // Function for new title
 function displayUserInput() {
-  stitle.innerHTML = `You Entered: ${userNumbers.join(', ')}`;
+  stitle.innerHTML = `Randome: ${computer}, You Entered: ${userNumbers.join(', ')}`;
 }
