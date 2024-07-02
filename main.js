@@ -80,6 +80,12 @@ function play() {
     showMessage('The number is already exist. Please try again');
     return;
   }
+  
+  // Store user input into the array
+  userNumbers.push(userValue);
+  // Update the sub title with user inputs
+  displayUserInput();
+
   // check remained attampt
   let remainedAttampt = maxAttempts - attempts;
 
@@ -87,23 +93,6 @@ function play() {
   remained.classList.remove('d-none');
   remained.textContent = `You have ${remainedAttampt} times left`;
   count.textContent = remainedAttampt;
-
-  // Increase user attempt
-  attempts++;
-  let increaseBombSize = maxAttempts + attempts * 2; // Increase by 0.8rem per attempt
-  bomb.style.fontSize = `${increaseBombSize}rem`;
-
-  // Calculate RGB values for each attempt
-  const targetColor = { r: 220, g: 53, b: 69 }; // RGB values for #dc3545
-  const redValue = Math.min(targetColor.r, attempts * (targetColor.r / 5));
-  const greenValue = Math.min(targetColor.g, attempts * (targetColor.g / 5));
-  const blueValue = Math.min(targetColor.b, attempts * (targetColor.b / 5));
-  bomb.style.color = `rgb(${redValue}, ${greenValue}, ${blueValue})`;
-
-  // Store user input into the array
-  userNumbers.push(userValue);
-  // Update the sub title with user inputs
-  displayUserInput();
 
   // if user input value is the same number with computer, display a message
   if (userValue > computer) {
@@ -131,7 +120,7 @@ function play() {
     generateNewPlayBtn();
   }
 
-  // user have five chances
+  // check attemps
   if (attempts > maxAttempts) {
     // when game over - enter button disabled
     burst.classList.remove('d-none');
@@ -145,6 +134,18 @@ function play() {
     btnReset.classList.add('d-none');
     generateNewPlayBtn();
   }
+
+  // Increase user attempt
+  attempts++;
+  let increaseBombSize = maxAttempts + attempts * 2; // Increase by 0.8rem per attempt
+  bomb.style.fontSize = `${increaseBombSize}rem`;
+
+  // Calculate RGB values for each attempt
+  const targetColor = { r: 220, g: 53, b: 69 }; // RGB values for #dc3545
+  const redValue = Math.min(targetColor.r, attempts * (targetColor.r / 5));
+  const greenValue = Math.min(targetColor.g, attempts * (targetColor.g / 5));
+  const blueValue = Math.min(targetColor.b, attempts * (targetColor.b / 5));
+  bomb.style.color = `rgb(${redValue}, ${greenValue}, ${blueValue})`;
 }
 
 // new play button
