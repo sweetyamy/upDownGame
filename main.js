@@ -86,6 +86,32 @@ function play() {
   // Update the sub title with user inputs
   displayUserInput();
 
+  // if user input value is the same number with computer, display a message
+  if (userValue > computer) {
+    // if user input value is a large number than computer, display Down!
+    result.classList.remove('d-none');
+    result.textContent = 'Down!!!';
+    result.style.color = 'var(--bs-primary)';
+  } else if (userValue < computer) {
+    // if user input value is a small number than computer, display Up!
+    result.classList.remove('d-none');
+    result.textContent = 'UP!!!';
+    result.style.color = 'var(--bs-danger)';
+  } else {
+    // if user typed the same number with the history, display an error
+    result.classList.remove('d-none');
+    result.textContent = 'Bingo!!!';
+    result.style.color = 'var(--bs-warning)';
+    result.style.fontSize  = '5rem';
+    remained.innerHTML = `If you want to play again, click <strong>&lt;Play Again&gt;</strong> button`;
+    btnEnter.disabled = true;
+    title.classList.add('d-none');
+    bomb.classList.add('d-none');
+    btnEnter.classList.add('d-none');
+    btnReset.classList.add('d-none');
+    generateNewPlayBtn();
+  }
+
   // check remained attampt
   let remainedAttampt = maxAttempts - attempts;
 
@@ -93,35 +119,6 @@ function play() {
   remained.classList.remove('d-none');
   remained.textContent = `You have ${remainedAttampt} times left`;
   count.textContent = remainedAttampt;
-
-  // if user input value is the same number with computer, display a message
-  if (userValue === computer) {
-    // if user typed the same number with the history, display an error
-    result.classList.remove('d-none');
-    result.textContent = 'Bingo!!!';
-    result.style.color = 'var(--bs-warning)';
-    result.style.fontSize = '5rem';
-    remained.innerHTML = `If you want to play again, click <strong>&lt;Play Again&gt;</strong> button`;
-    btnEnter.disabled = true;
-    title.classList.add('d-none');
-    stitle.classList.add('d-none');
-    count.classList.add('d-none');
-    bomb.classList.add('d-none');
-    userInput.classList.add('d-none');
-    btnEnter.classList.add('d-none');
-    btnReset.classList.add('d-none');
-    generateNewPlayBtn();
-  } else if (userValue > computer) {
-    // if user input value is a large number than computer, display Down!
-    result.classList.remove('d-none');
-    result.textContent = 'Down!!!';
-    result.style.color = 'var(--bs-primary)';
-  } else {
-    // if user input value is a small number than computer, display Up!
-    result.classList.remove('d-none');
-    result.textContent = 'UP!!!';
-    result.style.color = 'var(--bs-danger)';
-  } 
 
   // check attemps
   const checkMaxAttempts = maxAttempts - 1;
@@ -195,7 +192,6 @@ function reset() {
   
   attempts = 1; 
   userNumbers = [];
-  count.classList.remove('d-none');
   count.textContent = 3;
   stitle.textContent = '';
   userInput.classList.remove('d-none');
